@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceVault.IdentityProvider",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceVault.Infrastructure", "Src\IceVault.Infrastructure\IceVault.Infrastructure.csproj", "{5DAFE017-421A-4DFE-8077-3170E7B7C57E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceVault.Application.Test", "Tests\IceVault.Application.Test\IceVault.Application.Test.csproj", "{5042F449-3E66-4CEC-99FC-2A4B257EB849}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{5DAFE017-421A-4DFE-8077-3170E7B7C57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DAFE017-421A-4DFE-8077-3170E7B7C57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DAFE017-421A-4DFE-8077-3170E7B7C57E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5042F449-3E66-4CEC-99FC-2A4B257EB849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5042F449-3E66-4CEC-99FC-2A4B257EB849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5042F449-3E66-4CEC-99FC-2A4B257EB849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5042F449-3E66-4CEC-99FC-2A4B257EB849}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{14BA29EE-4F06-4B10-8CF7-704A78FA3031} = {5A0C156E-EAA7-4827-BD52-1B4FF9FA4E47}
 		{79757EF2-8848-4ED8-8BCD-E8C8EC99BAA2} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
 		{5DAFE017-421A-4DFE-8077-3170E7B7C57E} = {B0AB43D5-A551-45FC-9030-146BDC72E33C}
+		{5042F449-3E66-4CEC-99FC-2A4B257EB849} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DF4B04D-75D7-4587-82BC-7FCB998DF76F}

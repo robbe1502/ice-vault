@@ -11,5 +11,6 @@ public sealed class LoginQuery : IQuery<LoginResult>
     }
 
     public string Email { get; }
+
     public string Password { get; }
 }

@@ -8,17 +8,23 @@
   <ItemGroup>
     <ProjectReference Include="..\IceVault.Application\IceVault.Application.csproj" />
     <ProjectReference Include="..\IceVault.Common\IceVault.Common.csproj" />
+    <ProjectReference Include="..\IceVault.Persistence.Write\IceVault.Persistence.Write.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="IdentityModel" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Net.Http.Headers" Version="2.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Polly" Version="7.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Identity\" />
+	  <Folder Include="Mails\Authentication\" />
 	</ItemGroup>
 
 </Project>

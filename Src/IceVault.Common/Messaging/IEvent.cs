@@ -1,5 +1,5 @@
 ﻿namespace IceVault.Common.Messaging;
 
-public interface ICommand : IMessage
+public interface IEvent : IMessage
 {
 }

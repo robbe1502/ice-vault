@@ -1,6 +1,7 @@
-﻿namespace IceVault.Common.Messaging;
+﻿
+namespace IceVault.Common.Messaging;
 
 public interface ICommandDispatcher
 {
-    Task Dispatch(ICommand command);
+    Task Dispatch(Envelope<ICommand> envelope);
 }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Login\" />
+    <Folder Include="Authentication\Register\" />
   </ItemGroup>
 
 </Project>

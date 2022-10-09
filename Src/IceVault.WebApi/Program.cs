@@ -1,6 +1,7 @@
 using IceVault.Application;
 using IceVault.Common.Settings;
 using IceVault.Infrastructure;
+using IceVault.Persistence.Write;
 using IceVault.Presentation.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -13,13 +14,21 @@ builder.Services.AddControllers().AddApplicationPart(typeof(AuthenticationContro
 // Dependencies
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
+builder.Services.AddWritePersistence();
+
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAutoMapper(typeof(AuthenticationController).Assembly);
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient();
 
+
+// Settings
 builder.Services.Configure<IdentitySetting>(builder.Configuration.GetSection("Identity"));
+builder.Services.Configure<PersistenceSetting>(builder.Configuration.GetSection("Persistence"));
 
 
 // Authentication & Authorization

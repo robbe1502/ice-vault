@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
-using IceVault.IdentityProvider.Models;
+using IceVault.IdentityProvider.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,7 +63,7 @@ public static class DatabaseSeeder
                 LastName = "Van Bael",
                 Email = "robbe.van.bael@hotmail.com",
                 UserName = "robbe.van.bael@hotmail.com",
-                Language = "en_GB",
+                Locale = "en-GB",
                 TimeZone = "Europe/Brussels",
                 Currency = "EUR"
             };

@@ -1,0 +1,18 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-medium) * 7.5);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-tiny);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-large);
+  }
+}

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace IceVault.IdentityProvider.Models;
+namespace IceVault.IdentityProvider.Entities;
 
 public class ApplicationUser : IdentityUser
 {
@@ -18,5 +18,5 @@ public class ApplicationUser : IdentityUser
     public string Currency { get; set; }
 
     [MaxLength(5)]
-    public string Language { get; set; }
+    public string Locale { get; set; }
 }

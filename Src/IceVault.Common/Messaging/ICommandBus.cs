@@ -2,5 +2,5 @@
 
 public interface ICommandBus
 {
-    Task Send(ICommand command);
+    Task Send<T>(T command) where T : ICommand;
 }

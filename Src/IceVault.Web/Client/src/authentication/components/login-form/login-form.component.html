@@ -1,0 +1,10 @@
+<form class="form" [formGroup]="form">
+  <div class="form__group">
+    <label for="email" class="form__label">{{ 'login-form.email' | translate }}</label>
+    <input formControlName="email" id="email" type="email" class="form__input">
+  </div>
+  <div class="form__group">
+    <label for="password" class="form__label">{{ 'login-form.password' | translate }}</label>
+    <input formControlName="password" id="password" type="password" autocomplete="on" class="form__input">
+  </div>
+</form>

@@ -16,21 +16,20 @@ internal class EventBus : IEventBus
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task Publish(IEvent @event, Envelope<ICommand> envelope)
+    public async Task Publish(IEvent @event, string correlationId)
     {
         using var scope = _factory.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<IceVaultWriteDbContext>();
 
-        var payload = JsonConvert.SerializeObject(@event, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+        var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         var type = @event.GetType().AssemblyQualifiedName;
 
-        var message = new OutboxMessage(envelope.CorrelationId, type, payload);
+        var payload = JsonConvert.SerializeObject(@event, settings);
+
+        var message = new OutboxMessage(correlationId, type, payload);
         context.OutboxMessages.Add(message);
 
         await context.SaveChangesAsync();
-
-        var dispatcher = scope.ServiceProvider.GetRequiredService<IEventDispatcher>();
-        await dispatcher.Dispatch(Envelope.Clone(envelope, @event));
     }
 }

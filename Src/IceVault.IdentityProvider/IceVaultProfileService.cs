@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Duende.IdentityServer.AspNetIdentity;
 using Duende.IdentityServer.Models;
-using IceVault.IdentityProvider.Models;
+using IceVault.IdentityProvider.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace IceVault.IdentityProvider;
@@ -30,7 +30,7 @@ public class IceVaultProfileService : ProfileService<ApplicationUser>
 
         identity.AddClaim(new Claim("full_name", $"{user.FirstName} {user.LastName}"));
         identity.AddClaim(new Claim("email", user.Email));
-        identity.AddClaim(new Claim("locale", user.Language));
+        identity.AddClaim(new Claim("locale", user.Locale));
         identity.AddClaim(new Claim("time_zone", user.TimeZone));
         identity.AddClaim(new Claim("currency", user.Currency));
 

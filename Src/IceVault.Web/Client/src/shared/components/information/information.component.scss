@@ -1,0 +1,41 @@
+.information {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: var(--spacing-medium);
+  font-size: var(--spacing-small-medium);
+  line-height: calc(var(--spacing-small-medium) * 1.75);
+
+  &__message {
+    flex: 1;
+  }
+
+  &__icon {
+    cursor: pointer;
+  }
+
+  &--error {
+    border-left: 5px solid var(--error-500);
+    background-color: var(--error-50);
+    color: var(--error-500);
+  }
+
+  &--success {
+    border-left: 5px solid var(--success-500);
+    background-color: var(--success-50);
+    color: var(--success-500);
+  }
+
+  &--warning {
+    border-left: 5px solid var(--warning-500);
+    background-color: var(--warning-50);
+    color: var(--warning-500);
+  }
+
+  &--info {
+    border-left: 5px solid var(--neutral-400);
+    background-color: var(--neutral-50);
+    color: var(--neutral-600);
+  }
+}

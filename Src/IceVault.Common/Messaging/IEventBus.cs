@@ -2,5 +2,5 @@
 
 public interface IEventBus
 {
-    Task Publish(IEvent @event, Envelope<ICommand> envelope);
+    Task Publish(IEvent @event, string correlationId);
 }

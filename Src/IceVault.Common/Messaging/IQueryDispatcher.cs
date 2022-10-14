@@ -1,4 +1,5 @@
-﻿namespace IceVault.Common.Messaging;
+﻿
+namespace IceVault.Common.Messaging;
 
 public interface IQueryDispatcher
 {

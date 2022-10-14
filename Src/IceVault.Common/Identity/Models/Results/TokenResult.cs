@@ -1,4 +1,4 @@
-﻿namespace IceVault.Common.Identity;
+﻿namespace IceVault.Common.Identity.Models.Results;
 
 public class TokenResult
 {

@@ -12,7 +12,7 @@ namespace IceVault.IdentityProvider
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
             new IdentityResources.Email(),
-            new("profile-data", "Additional Data profile data", new [] { "locale", "time_zone", "currency" })
+            new("profile-data", "Additional Data profile data", new [] { "locale", "time_zone", "currency", "full_name" })
         };
 
         public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>()

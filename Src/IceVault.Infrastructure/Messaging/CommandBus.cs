@@ -15,22 +15,22 @@ internal class CommandBus : ICommandBus
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task Send(ICommand command)
+    public async Task Send<T>(T command) where T : ICommand
     {
         using var scope = _factory.CreateScope();
 
         var dispatcher = scope.ServiceProvider.GetRequiredService<ICommandDispatcher>();
         var accessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
 
-        var token = accessor.HttpContext.Request.Headers[HeaderNames.Authorization];
+        string authorization = accessor.HttpContext.Request.Headers[HeaderNames.Authorization];
+        var token = authorization.Substring("Bearer ".Length);
 
-        var userId = accessor.HttpContext.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value;
-        var fullName = accessor.HttpContext.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.FullName)?.Value;
-        var locale = accessor.HttpContext.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.Locale)?.Value;
-        var timeZone = accessor.HttpContext.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.TimeZone)?.Value;
-        var currency = accessor.HttpContext.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.Currency)?.Value;
+        var requestPath = accessor.HttpContext.Request.Path.Value;
+        var userId = accessor.HttpContext.User.Claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value;
+        
+        var connectionId = "";
 
-        var envelope = Envelope.Create(command, token, userId, fullName, locale, timeZone, currency);
+        var envelope = Envelope<T>.Create(command, token, requestPath, connectionId, userId);
         await dispatcher.Dispatch(envelope);
     }
 }

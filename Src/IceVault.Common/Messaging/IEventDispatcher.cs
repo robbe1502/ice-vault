@@ -2,5 +2,5 @@
 
 public interface IEventDispatcher
 {
-    Task Dispatch(Envelope<IEvent> envelope);
+    Task Dispatch(IEvent @event, string correlationId);
 }

@@ -32,7 +32,7 @@ namespace IceVault.IdentityProvider.Migrations.Application
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     TimeZone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Language = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
+                    Locale = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

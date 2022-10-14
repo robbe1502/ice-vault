@@ -1,4 +1,4 @@
-using IceVault.IdentityProvider.Models;
+using IceVault.IdentityProvider.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -9,6 +9,8 @@ namespace IceVault.IdentityProvider
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddControllers();
+
             var migrationAssembly = typeof(HostingExtensions).Assembly.GetName().Name;
             var connectionString = builder.Configuration["Database:ConnectionString"];
 
@@ -42,6 +44,7 @@ namespace IceVault.IdentityProvider
             }
 
             app.UseIdentityServer();
+            app.MapControllers();
 
             return app;
         }

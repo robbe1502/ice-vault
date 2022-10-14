@@ -3,5 +3,5 @@ namespace IceVault.Common.Messaging;
 
 public interface ICommandDispatcher
 {
-    Task Dispatch(Envelope<ICommand> envelope);
+    Task Dispatch<T>(Envelope<T> envelope) where T : ICommand;
 }

@@ -2,7 +2,7 @@
 
 namespace IceVault.Common.Messaging;
 
-public interface ICommandHandler<T> where T : ICommand
+public interface ICommandHandler<T> where T : class, ICommand
 {
-    Task<Result> HandleAsync(T command, Envelope<ICommand> envelope);
+    Task HandleAsync(Envelope<T> envelope);
 }

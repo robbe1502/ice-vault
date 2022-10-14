@@ -1,0 +1,15 @@
+<div class="login">
+  <div class="login__header">
+    <h1 class="heading-primary">{{ 'login.page-title' | translate }}</h1>
+    <p class="paragraph">{{ 'login.page-description' | translate }}</p>
+  </div>
+  <div class="login__content">
+    <ice-vault-login-form [form]="form"></ice-vault-login-form>
+  </div>
+  <div class="login__actions">
+    <button class="button button--tertiary">{{ 'login.register' | translate }}</button>
+    <button (click)="onSubmit()" [disabled]="form.invalid" class="button button--primary">
+      {{ 'login.submit' | translate }}
+    </button>
+  </div>
+</div>

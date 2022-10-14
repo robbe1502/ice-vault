@@ -1,5 +1,4 @@
-﻿using IceVault.Common.ExceptionHandling;
-using IceVault.Common.Identity;
+﻿using IceVault.Common.Identity;
 using IceVault.Common.Messaging;
 
 namespace IceVault.Application.Authentication.Login;

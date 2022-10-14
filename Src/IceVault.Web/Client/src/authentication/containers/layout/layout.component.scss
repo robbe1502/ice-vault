@@ -1,0 +1,25 @@
+.page {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  &__left,
+  &__right {
+    flex: 1;
+  }
+
+  &__left {
+    background-color: var(--primary-800);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__right {
+    padding: calc(var(--spacing-tiny) * 10);
+    max-width: 40rem;
+  }
+
+  &__background {
+    padding: calc(var(--spacing-tiny) * 10);
+  }
+}

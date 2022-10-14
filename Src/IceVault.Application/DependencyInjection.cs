@@ -10,11 +10,11 @@ public static class DependencyInjection
     {
         var assembly = typeof(DependencyInjection).Assembly;
 
-        AddHandlers(services, assembly, typeof(ICommandHandler<>));
-        AddHandlers(services, assembly, typeof(IQueryHandler<,>));
+        services.AddHandlers(assembly, typeof(ICommandHandler<>));
+        services.AddHandlers(assembly, typeof(IQueryHandler<,>));
     }
 
-    public static void AddHandlers(IServiceCollection services, Assembly assembly, Type type)
+    public static IServiceCollection AddHandlers(this IServiceCollection services, Assembly assembly, Type type)
     {
         var handlers = assembly.GetExportedTypes().Where(el => el.IsClass && el.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == type)).ToList();
         foreach (var handler in handlers)
@@ -22,5 +22,7 @@ public static class DependencyInjection
             var handlerType = handler.GetInterfaces().Single(el => el.IsGenericType && el.GetGenericTypeDefinition() == type);
             services.AddScoped(handlerType, handler);
         }
+
+        return services;
     }
 }

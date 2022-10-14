@@ -11,4 +11,6 @@ public static class IceVaultClaimConstant
     public static string FullName => "full_name";
 
     public static string Id => "sub";
+
+    public static string Email => "email";
 }

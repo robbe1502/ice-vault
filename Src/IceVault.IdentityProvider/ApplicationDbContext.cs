@@ -1,4 +1,4 @@
-﻿using IceVault.IdentityProvider.Models;
+﻿using IceVault.IdentityProvider.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

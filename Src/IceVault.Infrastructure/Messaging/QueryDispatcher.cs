@@ -1,4 +1,5 @@
-﻿using IceVault.Common.Messaging;
+﻿using IceVault.Common.ExceptionHandling;
+using IceVault.Common.Messaging;
 
 namespace IceVault.Infrastructure.Messaging;
 

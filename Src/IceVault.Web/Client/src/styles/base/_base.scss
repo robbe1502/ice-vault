@@ -1,0 +1,19 @@
+@import url(https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css);
+@import url(https://kit-pro.fontawesome.com/releases/latest/css/pro-v4-font-face.min.css);
+@import url(https://kit-pro.fontawesome.com/releases/latest/css/pro-v4-shims.min.css);
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 75rem;
+  margin: 0 auto;
+}

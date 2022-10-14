@@ -1,0 +1,21 @@
+html {
+  font-size: var(--font-size);
+}
+
+body {
+  font-family: var(--font-family), sans-serif;
+  font-weight: var(--font-weight);
+}
+
+.heading-primary {
+  font-size: calc(var(--spacing-medium) * 3);
+  line-height: calc(var(--spacing-medium) * 3 * 1.5);
+  color: var(--neutral-800);
+  font-weight: 700;
+}
+
+.paragraph {
+  font-size: var(--spacing-medium);
+  font-weight: var(--font-weight);
+  color: var(--neutral-500);
+}

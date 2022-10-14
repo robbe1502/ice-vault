@@ -1,0 +1,16 @@
+{
+  "loading": {
+    "longer": "It takes longer then expected...We are trying again"
+  },
+  "login": {
+    "page-title": "Welcome Back",
+    "page-description": "In order to access the application, login with your email address and password",
+    "submit": "Login",
+    "register": "Register",
+    "failed": "Something went wrong while logging in your account. Please try again later."
+  },
+  "login-form": {
+    "email": "Email",
+    "password": "Password"
+  }
+}

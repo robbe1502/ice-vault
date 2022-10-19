@@ -2,10 +2,12 @@ import { BehaviorSubject, map } from 'rxjs';
 
 import { InformationStyle } from './shared/components/information/information.component';
 
-export interface AuthenticationState {
-  accessToken: string;
-  refreshToken: string;
-  expiresIn: number;
+export interface UserState {
+  name: string;
+  email: string;
+  currency: string;
+  timeZone: string;
+  locale: string;
 }
 
 export interface InformationState {
@@ -19,7 +21,7 @@ export interface AppState {
   loading: boolean;
   isRetrying: boolean;
   information: InformationState | undefined;
-  authentication: AuthenticationState | undefined;
+  user: UserState | undefined;
 }
 
 const initialState: AppState = {
@@ -28,7 +30,7 @@ const initialState: AppState = {
   loading: false,
   isRetrying: false,
   information: undefined,
-  authentication: undefined
+  user: undefined
 };
 
 export class StoreFactory {
@@ -43,10 +45,10 @@ export class StoreFactory {
 export abstract class Store {
   private store = StoreFactory.getState();
 
-  locale$ = this.state$.pipe(map((state) => state.locale));
   loading$ = this.state$.pipe(map((state) => state.loading));
   information$ = this.state$.pipe(map((state) => state.information));
   isRetrying$ = this.state$.pipe(map((state) => state.isRetrying));
+  user$ = this.state$.pipe(map((state) => state.user));
 
   get state$() {
     return this.store.asObservable();

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using IceVault.Application.Authentication.Login;
 using IceVault.Common.ExceptionHandling;
 using IceVault.Common.Identity;
 using IceVault.Common.Identity.Models.Requests;
@@ -40,6 +41,25 @@ internal class IdentityProvider : IIdentityProvider
 
         if (token.IsError) throw new BusinessException(FailureConstant.IdentityProvider.FailedToken);
         return new TokenResult(token.AccessToken, token.RefreshToken, token.ExpiresIn);
+    }
+
+    public async Task<TokenResult> RefreshTokenAsync(string token)
+    {
+        var client = _factory.CreateClient();
+
+        var discoveryDocument = await client.GetDiscoveryDocumentAsync(_settings.Authority);
+        if (discoveryDocument.IsError) throw new BusinessException(FailureConstant.IdentityProvider.FailedDiscovery);
+
+        var result = await client.RequestRefreshTokenAsync(new RefreshTokenRequest()
+        {
+            Address = discoveryDocument.TokenEndpoint,
+            ClientId = _settings.ClientId,
+            ClientSecret = _settings.ClientSecret,
+            RefreshToken = token
+        });
+
+        if (result.IsError) throw new BusinessException(FailureConstant.IdentityProvider.FailedToken);
+        return new TokenResult(result.AccessToken, result.RefreshToken, result.ExpiresIn);
     }
 
     public async Task<UserResult> GetProfileAsync(string token)

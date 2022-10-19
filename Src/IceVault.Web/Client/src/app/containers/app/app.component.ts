@@ -16,6 +16,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translateService.setDefaultLanguage(this.store.value.defaultLocale);
-    this.translateService.use(this.store.value.locale);
   }
 }

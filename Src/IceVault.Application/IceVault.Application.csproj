@@ -15,7 +15,10 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Login\" />
+    <Folder Include="Authentication\Refresh\" />
     <Folder Include="Authentication\Register\" />
+    <Folder Include="Notifications\QueryHandlers\" />
+    <Folder Include="Notifications\Queries\" />
   </ItemGroup>
 
 </Project>

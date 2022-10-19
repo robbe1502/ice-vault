@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IceVault.Application.Authentication.Login;
 using IceVault.Application.Authentication.Profile;
+using IceVault.Application.Authentication.Refresh;
 using IceVault.Application.Authentication.Register;
 using IceVault.Common.Messaging;
 using IceVault.Presentation.Authentication.Models.Demands;
@@ -8,7 +9,6 @@ using IceVault.Presentation.Authentication.Models.Requests;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace IceVault.Presentation.Authentication;
 
@@ -46,6 +46,13 @@ public class AuthenticationController : ControllerBase
         var token = await HttpContext.GetTokenAsync("access_token");
         
         var query = new ProfileInformationQuery(token);
+        return await _dispatcher.Dispatch(query);
+    }
+
+    [HttpGet, Route("refresh/{token}"), AllowAnonymous]
+    public async Task<LoginResult> RefreshTokenAsync([FromRoute] string token)
+    {
+        var query = new RefreshTokenQuery(token);
         return await _dispatcher.Dispatch(query);
     }
 }

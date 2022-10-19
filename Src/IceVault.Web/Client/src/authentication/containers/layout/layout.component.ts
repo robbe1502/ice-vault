@@ -6,7 +6,7 @@ import { InformationState } from '../../../store';
 import { AuthenticationStore } from '../../store/authentication.store';
 
 @Component({
-  selector: 'ice-vault-layout',
+  selector: 'ice-vault-auth-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

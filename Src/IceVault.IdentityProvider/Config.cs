@@ -35,7 +35,7 @@ namespace IceVault.IdentityProvider
                     IdentityServerConstants.StandardScopes.Profile,
                     "profile-data"
                 },
-                AllowOfflineAccess = true
+                AllowOfflineAccess = true,
             }
         };
 

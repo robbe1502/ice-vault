@@ -62,7 +62,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters()
         {
-            ValidateAudience = false
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ClockSkew = TimeSpan.Zero,
         };
     });
 

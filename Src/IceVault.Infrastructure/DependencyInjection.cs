@@ -4,6 +4,8 @@ using IceVault.Infrastructure.Identity;
 using IceVault.Infrastructure.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using IceVault.Application;
+using IceVault.Common.Mails;
+using IceVault.Infrastructure.Mails;
 
 namespace IceVault.Infrastructure;
 
@@ -22,5 +24,7 @@ public static class DependencyInjection
 
         services.AddScoped<IIdentityProvider, IdentityProvider>();
         services.AddScoped<ICurrentUser, CurrentUser>();
+
+        services.AddScoped<IMailService, MailService>();
     }
 }

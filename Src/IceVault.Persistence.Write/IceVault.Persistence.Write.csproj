@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IceVault.Application\IceVault.Application.csproj" />
     <ProjectReference Include="..\IceVault.Common\IceVault.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Configuration\" />
   </ItemGroup>
 

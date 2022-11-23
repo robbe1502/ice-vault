@@ -1,4 +1,4 @@
-﻿using IceVault.Persistence.Write.Entities;
+﻿using IceVault.Application.Repositories.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

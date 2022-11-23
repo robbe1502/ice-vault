@@ -10,5 +10,7 @@ public interface IIdentityProvider
 
     Task<UserResult> GetProfileAsync(string token);
 
+    Task<UserResult> GetUserById(string id);
+
     Task<Guid> RegisterUserAsync(string firstName, string lastName, string email, string password, string locale, string timeZone, string currency);
 }

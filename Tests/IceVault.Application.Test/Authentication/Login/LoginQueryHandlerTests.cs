@@ -1,7 +1,7 @@
-﻿using FakeItEasy;
-using IceVault.Application.Authentication.Login;
+﻿using IceVault.Application.Authentication.Login;
 using IceVault.Common.Identity;
 using IceVault.Common.Identity.Models.Results;
+using Moq;
 using Shouldly;
 using Xunit;
 
@@ -12,15 +12,15 @@ public class LoginQueryHandlerTests
     [Fact]
     public async Task HandleAsync_ShouldReturnToken_WhenEmailAndPasswordAreGiven_Test()
     {
-        var provider = A.Fake<IIdentityProvider>();
-        A.CallTo(() => provider.GetTokenAsync(A.Dummy<string>(), A.Dummy<string>())).Returns(new TokenResult(string.Empty, string.Empty, 0));
+        var provider = new Mock<IIdentityProvider>();
+        provider.Setup(el => el.GetTokenAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new TokenResult(string.Empty, string.Empty, 0));
 
-        var handler = new LoginQueryHandler(provider);
+        var handler = new LoginQueryHandler(provider.Object);
 
         var query = new LoginQuery("john.doe@hotmail.com", "123");
         var result = await handler.HandleAsync(query);
 
-        A.CallTo(() => provider.GetTokenAsync("john.doe@hotmail.com", "123")).MustHaveHappenedOnceExactly();
+        provider.Verify(el => el.GetTokenAsync("john.doe@hotmail.com", "123"), Times.Once);
         result.AccessToken.ShouldBe(string.Empty);
         result.RefreshToken.ShouldBe(string.Empty);
         result.ExpiresIn.ShouldBe(0);

@@ -5,6 +5,7 @@ using IceVault.Common.Identity;
 using IceVault.Common.Identity.Models.Requests;
 using IceVault.Common.Identity.Models.Results;
 using IceVault.Common.Settings;
+using IceVault.Infrastructure.Identity.Models;
 using IdentityModel.Client;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -89,6 +90,21 @@ internal class IdentityProvider : IIdentityProvider
         };
     }
 
+    public async Task<UserResult> GetUserById(string id)
+    {
+        var client = _factory.CreateClient();
+
+        var url = $"{_settings.Authority}/api/v1/users/{id}";
+        
+        var response = await client.GetAsync(new Uri(url));
+        if (!response.IsSuccessStatusCode) throw new BusinessException(FailureConstant.IdentityProvider.FailedUserRetrieval);
+
+        var body = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<UserResult>(body);
+        return result;
+    }
+
     public async Task<Guid> RegisterUserAsync(string firstName, string lastName, string email, string password, string locale, string timeZone, string currency)
     {
         var client = _factory.CreateClient();
@@ -111,8 +127,10 @@ internal class IdentityProvider : IIdentityProvider
         if (!response.IsSuccessStatusCode) throw new BusinessException(FailureConstant.IdentityProvider.FailedUserCreation);
 
         var body = await response.Content.ReadAsStringAsync();
-        dynamic result = JsonConvert.DeserializeObject(body);
+        
+        var result = JsonConvert.DeserializeObject<RegisterUserResponse>(body);
+        if (result == null) throw new BusinessException(FailureConstant.IdentityProvider.FailedUserCreation);
 
-        return result?.Id;
+        return result.Id;
     }
 }

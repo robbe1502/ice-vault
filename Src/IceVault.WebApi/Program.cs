@@ -19,7 +19,7 @@ builder.Services.AddControllers()
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 builder.Services.AddWritePersistence();
-builder.Services.AddReadPersistence(builder.Configuration);
+builder.Services.AddReadPersistence();
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
@@ -36,10 +36,10 @@ builder.Services.AddSwaggerGen();
 // Background Jobs
 builder.Services.AddQuartz(config =>
 {
-    var processOutboxMessageKey = new JobKey(nameof(ProcessOutboxMessagesJob));
+    var processOutboxMessageKey = new JobKey(nameof(ProcessOutboxMessageJob));
     config.UseMicrosoftDependencyInjectionJobFactory();
 
-    config.AddJob<ProcessOutboxMessagesJob>(processOutboxMessageKey).AddTrigger(trigger =>
+    config.AddJob<ProcessOutboxMessageJob>(processOutboxMessageKey).AddTrigger(trigger =>
         trigger.ForJob(processOutboxMessageKey)
             .WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(30).RepeatForever()));
 });
@@ -50,7 +50,7 @@ builder.Services.AddQuartzHostedService();
 // Settings
 builder.Services.Configure<IdentitySetting>(builder.Configuration.GetSection("Identity"));
 builder.Services.Configure<PersistenceSetting>(builder.Configuration.GetSection("Persistence"));
-
+builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("Mail"));
 
 // Authentication & Authorization
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(

@@ -1,23 +1,21 @@
 ﻿using IceVault.Application;
-using IceVault.Application.Notifications.Repositories;
+using IceVault.Application.Repositories;
+using IceVault.Application.SystemErrors.Entities;
+using IceVault.Application.SystemErrors.Repositories;
 using IceVault.Common.Messaging;
-using IceVault.Persistence.Read.Notifications.Repositories;
+using IceVault.Persistence.Read.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 
 namespace IceVault.Persistence.Read;
 
 public static class DependencyInjection
 {
-    public static void AddReadPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static void AddReadPersistence(this IServiceCollection services)
     {
-        var connectionString = configuration["Persistence:Read:ConnectionString"];
-        var name = configuration["Persistence:Read:Name"];
-
-        services.AddScoped<INotificationRepository, NotificationRepository>();
-        services.AddScoped(_ => new MongoClient(connectionString).GetDatabase(name));
-
+        services.AddScoped<ISystemErrorRepository, SystemErrorRepository>();
+        services.AddDbContext<IceVaultReadDbContext>();
+        
         services.AddHandlers(typeof(DependencyInjection).Assembly, typeof(IEventHandler<>));
     }
 }

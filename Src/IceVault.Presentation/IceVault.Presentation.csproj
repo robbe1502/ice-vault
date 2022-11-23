@@ -18,7 +18,6 @@
 	<ItemGroup>
 	  <Folder Include="Authentication\Mappers\Demands\" />
 	  <Folder Include="Authentication\Models\Demands\" />
-	  <Folder Include="Notifications\" />
 	</ItemGroup>
 
 </Project>

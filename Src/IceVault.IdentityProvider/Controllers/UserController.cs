@@ -40,4 +40,13 @@ public class UserController : ControllerBase
 
         return BadRequest(identity.Errors);
     }
+
+    [Route("{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] string id)
+    {
+        var exists = await _manager.Users.FirstOrDefaultAsync(el => el.Id == id);
+        if (exists != null) return Ok(exists);
+
+        return BadRequest($"User with {id} was not found.");
+    }
 }

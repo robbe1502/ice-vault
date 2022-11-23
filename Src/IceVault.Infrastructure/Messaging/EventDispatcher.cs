@@ -1,6 +1,6 @@
-﻿using IceVault.Common.Messaging;
+﻿using IceVault.Application.Repositories.Entities;
+using IceVault.Common.Messaging;
 using IceVault.Persistence.Write;
-using IceVault.Persistence.Write.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;

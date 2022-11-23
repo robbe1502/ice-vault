@@ -2,19 +2,19 @@
 
 public class RegisterDemand
 {
-    public string FirstName { get; set; }
+    public string FirstName { get; init; }
 
-    public string LastName { get; set; }
+    public string LastName { get; init; }
 
-    public string Email { get; set; }
+    public string Email { get; init; }
 
-    public string Locale { get; set; }
+    public string Locale { get; init; }
 
-    public string TimeZone { get; set; }
+    public string TimeZone { get; init; }
 
-    public string Currency { get; set; }
+    public string Currency { get; init; }
 
-    public string Password { get; set; }
+    public string Password { get; init; }
 
-    public string ConfirmPassword { get; set; }
+    public string ConfirmPassword { get; init; }
 }

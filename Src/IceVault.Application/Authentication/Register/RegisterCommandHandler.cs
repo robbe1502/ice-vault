@@ -21,7 +21,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
         var id = await _provider.RegisterUserAsync(command.FirstName, command.LastName, command.Email, command.Password, command.Locale, command.TimeZone, command.Currency);
 
-        var @event = new RegisteredEvent($"{command.FirstName} {command.LastName}", command.Email, command.Locale);
-        await _bus.Publish(@event, envelope.CorrelationId);
+        var @event = new RegisteredEvent(envelope.CorrelationId, id.ToString(), $"{command.FirstName} {command.LastName}", command.Email, command.Locale);
+        await _bus.Publish(@event);
     }
 }

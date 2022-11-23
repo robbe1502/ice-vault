@@ -2,7 +2,9 @@
 
 public abstract class Entity
 {
-    public string Id { get; set; }
+    public long Id { get; init; }
 
-    public string UserId { get; set; }
+    public string ForeignSystemId { get; init; } = Guid.NewGuid().ToString();
+
+    public string UserId { get; init; }
 }

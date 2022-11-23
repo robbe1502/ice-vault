@@ -1,5 +1,5 @@
-﻿using IceVault.Common.Settings;
-using IceVault.Persistence.Write.Entities;
+﻿using IceVault.Application.Repositories.Entities;
+using IceVault.Common.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

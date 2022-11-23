@@ -23,14 +23,13 @@ internal class CommandBus : ICommandBus
         var accessor = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
 
         string authorization = accessor.HttpContext.Request.Headers[HeaderNames.Authorization];
-        var token = authorization.Substring("Bearer ".Length);
 
         var requestPath = accessor.HttpContext.Request.Path.Value;
         var userId = accessor.HttpContext.User.Claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value;
         
         var connectionId = "";
-
-        var envelope = Envelope<T>.Create(command, token, requestPath, connectionId, userId);
+        
+        var envelope = Envelope<T>.Create(command, authorization?["Bearer ".Length..], requestPath, connectionId, userId);
         await dispatcher.Dispatch(envelope);
     }
 }

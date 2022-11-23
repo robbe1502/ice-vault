@@ -18,5 +18,5 @@ public class Read
 {
     public string ConnectionString { get; set; }
 
-    public string Name { get; set; }
+    public bool IsLogsEnabled { get; set; }
 }

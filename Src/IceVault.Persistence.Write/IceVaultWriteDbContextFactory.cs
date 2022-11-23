@@ -15,7 +15,7 @@ public class IceVaultWriteDbContextFactory : IDesignTimeDbContextFactory<IceVaul
         var connectionString = configuration["Persistence:Write:ConnectionString"];
         var isLogsEnabled = bool.Parse(configuration["Persistence:Write:IsLogsEnabled"]);
 
-        var options = Options.Create<PersistenceSetting>(new PersistenceSetting() { Write = new Common.Settings.Write()
+        var options = Options.Create(new PersistenceSetting() { Write = new Common.Settings.Write()
         {
             ConnectionString = connectionString, 
             IsLogsEnabled = isLogsEnabled

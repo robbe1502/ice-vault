@@ -35,7 +35,7 @@ internal class CommandDispatcher : ICommandDispatcher
             _logger.LogError(exception, "Something went wrong handling a command - {correlationId} - {path} - {userId}", envelope.CorrelationId, envelope.RequestPath, envelope.UserId);
 
             var failures = exception is IceVaultException iceVaultException ? iceVaultException.Failures.ToList() : new List<Failure>() { FailureConstant.SomethingWentWrong };
-            await _bus.Publish(new CommandFailedEvent(failures, envelope.UserId), envelope.CorrelationId);
+            await _bus.Publish(new CommandFailedEvent(envelope.CorrelationId, failures, envelope.UserId));
         }
     }
 }

@@ -26,6 +26,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Src\IceVault.Common\IceVault.Common.csproj" />
       <ProjectReference Include="..\..\Src\IceVault.Presentation\IceVault.Presentation.csproj" />
+      <ProjectReference Include="..\..\Src\IceVault.WebApi\IceVault.WebApi.csproj" />
     </ItemGroup>
 
 </Project>

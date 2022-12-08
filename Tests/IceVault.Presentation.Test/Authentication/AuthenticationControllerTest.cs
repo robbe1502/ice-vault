@@ -58,7 +58,7 @@ public class AuthenticationControllerTest : IDisposable
     [Fact]
     public async Task RegisterAsync_ShouldDispatchRegisterCommand_Test()
     {
-        var demand = new RegisterDemand()
+        var demand = new RegisterDemand
         {
             FirstName = "John",
             LastName = "Doe",

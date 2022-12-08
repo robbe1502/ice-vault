@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceVault.Infrastructure.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceVault.Presentation.Test", "Tests\IceVault.Presentation.Test\IceVault.Presentation.Test.csproj", "{A769B3AD-6660-48CB-A906-2A61D3362900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceVault.WebApi.Test", "Tests\IceVault.WebApi.Test\IceVault.WebApi.Test.csproj", "{6622D079-60D6-4451-94FD-18D660F30135}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{A769B3AD-6660-48CB-A906-2A61D3362900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A769B3AD-6660-48CB-A906-2A61D3362900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A769B3AD-6660-48CB-A906-2A61D3362900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6622D079-60D6-4451-94FD-18D660F30135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6622D079-60D6-4451-94FD-18D660F30135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6622D079-60D6-4451-94FD-18D660F30135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6622D079-60D6-4451-94FD-18D660F30135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{5042F449-3E66-4CEC-99FC-2A4B257EB849} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
 		{8C7CC51C-6A5C-4AD2-9949-3BBC751903DE} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
 		{A769B3AD-6660-48CB-A906-2A61D3362900} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
+		{6622D079-60D6-4451-94FD-18D660F30135} = {59CAF162-6762-47D8-AFB5-B7CC0455D8FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DF4B04D-75D7-4587-82BC-7FCB998DF76F}

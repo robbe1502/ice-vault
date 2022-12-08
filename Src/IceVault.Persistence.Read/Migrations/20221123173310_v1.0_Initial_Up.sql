@@ -5,6 +5,5 @@ AS SELECT
     o.CorrelationId as 'CorrelationId',
     o.Payload as 'Payload',
     o.Type as 'EventType',
-    CONCAT(u.FirstName, ' ', u.LastName) as 'User'
+    o.UserName as 'User'
 FROM dbo.OutboxMessages o
-INNER JOIN dbo.AspNetUsers u on u.Id = o.UserId

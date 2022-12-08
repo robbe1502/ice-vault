@@ -26,10 +26,11 @@ internal class CommandBus : ICommandBus
 
         var requestPath = accessor.HttpContext.Request.Path.Value;
         var userId = accessor.HttpContext.User.Claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value;
+        var fullName = accessor.HttpContext.User.Claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.FullName)?.Value;
         
         var connectionId = "";
         
-        var envelope = Envelope<T>.Create(command, authorization?["Bearer ".Length..], requestPath, connectionId, userId);
+        var envelope = Envelope<T>.Create(command, authorization?["Bearer ".Length..], requestPath, connectionId, userId, fullName);
         await dispatcher.Dispatch(envelope);
     }
 }

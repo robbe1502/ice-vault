@@ -1,7 +1,10 @@
-﻿namespace IceVault.Application.SystemErrors.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace IceVault.Application.SystemErrors.Entities;
 
 public class SystemError
 {
+    [ExcludeFromCodeCoverage]
     private SystemError()
     {
     }
@@ -15,6 +18,7 @@ public class SystemError
         OccuredAt = occuredAt;
     }
     
+    [ExcludeFromCodeCoverage]
     public long Id { get; private set; }
     
     public string User { get; private set; }

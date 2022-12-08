@@ -25,4 +25,6 @@ public class RegisteredEvent : IEvent
     public string CorrelationId { get; }
     
     public string UserId => Id;
+
+    public string UserName => FullName;
 }

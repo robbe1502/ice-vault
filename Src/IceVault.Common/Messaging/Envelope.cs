@@ -5,7 +5,7 @@ namespace IceVault.Common.Messaging;
 
 public class Envelope<T> where T : IMessage
 {
-    protected Envelope(string correlationId, string payload, string type, string accessToken, string requestPath, string connectionId, string userId)
+    private Envelope(string correlationId, string payload, string type, string accessToken, string requestPath, string connectionId, string userId, string userName)
     {
         CorrelationId = correlationId;
         Payload = payload;
@@ -14,6 +14,7 @@ public class Envelope<T> where T : IMessage
         RequestPath = requestPath;
         ConnectionId = connectionId;
         UserId = userId;
+        UserName = userName;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -30,19 +31,21 @@ public class Envelope<T> where T : IMessage
     public string ConnectionId { get; }
 
     public string UserId { get; }
+    
+    public string UserName { get; }
 
     public bool IsAnonymous => string.IsNullOrWhiteSpace(AccessToken);
 
     public DateTime CreatedAt { get; }
 
-    public static Envelope<T> Create(T message, string accessToken, string requestPath, string connectionId, string userId)
+    public static Envelope<T> Create(T message, string accessToken, string requestPath, string connectionId, string userId, string userName)
     {
         var correlationId = Guid.NewGuid().ToString();
 
-        var payload = JsonConvert.SerializeObject(message, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+        var payload = JsonConvert.SerializeObject(message, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
         var type = message.GetType().AssemblyQualifiedName;
 
-        return new Envelope<T>(correlationId, payload, type, accessToken, requestPath, connectionId, userId);
+        return new Envelope<T>(correlationId, payload, type, accessToken, requestPath, connectionId, userId, userName);
     }
 
     public T GetPayload()

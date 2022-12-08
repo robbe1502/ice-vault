@@ -22,6 +22,7 @@ namespace IceVault.Persistence.Write.Migrations
                     Error = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ForeignSystemId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {

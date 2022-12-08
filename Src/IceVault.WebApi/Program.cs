@@ -86,3 +86,5 @@ app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization("ApiScope");
 app.Run();
+
+public partial class WebApiProgram {}

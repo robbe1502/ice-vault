@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using IceVault.Common.Messaging;
+﻿using IceVault.Common.Messaging;
 
 namespace IceVault.Application.Authentication.Register;
 

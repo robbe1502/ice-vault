@@ -27,7 +27,7 @@ internal class EventBus : IEventBus
 
         var payload = JsonConvert.SerializeObject(@event, settings);
 
-        var message = new OutboxMessage(@event.CorrelationId, type, payload, @event.UserId);
+        var message = new OutboxMessage(@event.CorrelationId, type, payload, @event.UserId, @event.UserName);
         
         await unitOfWork.OutboxMessageRepository.InsertAsync(message);
         await unitOfWork.SaveChangesAsync();

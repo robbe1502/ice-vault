@@ -16,7 +16,7 @@ public class IceVaultReadDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_settings.Read.ConnectionString);
+        optionsBuilder.UseSqlServer(_settings.Read.ConnectionString, el => el.UseNodaTime());
         optionsBuilder.EnableDetailedErrors(_settings.Read.IsLogsEnabled);
         optionsBuilder.EnableSensitiveDataLogging(_settings.Read.IsLogsEnabled);
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

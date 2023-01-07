@@ -87,7 +87,7 @@ public class AuthenticationControllerTest : IDisposable
         
         _mock.Mock<IQueryDispatcher>().Setup(el => el.Dispatch(It.IsAny<ProfileInformationQuery>())).ReturnsAsync(result);
 
-        var response = await _controller.GetProfileInformation();
+        var response = await _controller.GetProfileInformationAsync();
         response.ShouldBe(result);
     }
 

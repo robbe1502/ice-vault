@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using IceVault.Application.Authentication.Login;
+using IceVault.Common;
 using IceVault.Common.ExceptionHandling;
 using IceVault.Common.Identity;
 using IceVault.Common.Identity.Models.Requests;
@@ -70,7 +71,7 @@ internal class IdentityProvider : IIdentityProvider
         var discoveryDocument = await client.GetDiscoveryDocumentAsync(_settings.Authority);
         if (discoveryDocument.IsError) throw new BusinessException(FailureConstant.IdentityProvider.FailedDiscovery);
 
-        var result = await client.GetUserInfoAsync(new UserInfoRequest()
+        var result = await client.GetUserInfoAsync(new UserInfoRequest
         {
             Token = token,
             Address = discoveryDocument.UserInfoEndpoint
@@ -79,14 +80,14 @@ internal class IdentityProvider : IIdentityProvider
         if (result.IsError) throw new BusinessException(FailureConstant.IdentityProvider.FailedProfileInfo);
 
         var claims = result.Claims.ToList();
-        return new UserResult()
+        return new UserResult
         {
-            Id = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value,
-            Name = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.FullName)?.Value,
-            Email = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Email)?.Value,
-            TimeZone = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.TimeZone)?.Value,
-            Currency = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Currency)?.Value,
-            Locale = claims.FirstOrDefault(el => el.Type == IceVaultClaimConstant.Locale)?.Value,
+            Id = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.Id)?.Value,
+            Name = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.FullName)?.Value,
+            Email = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.Email)?.Value,
+            TimeZone = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.TimeZone)?.Value,
+            Currency = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.Currency)?.Value,
+            Locale = claims.FirstOrDefault(el => el.Type == IceVaultConstant.Claim.Locale)?.Value
         };
     }
 

@@ -1,4 +1,5 @@
 ﻿using IceVault.Common.Events.Authentication;
+using IceVault.Common.ExceptionHandling;
 using IceVault.Common.Identity;
 using IceVault.Common.Messaging;
 
@@ -18,7 +19,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
     public async Task HandleAsync(Envelope<RegisterCommand> envelope)
     {
         var command = envelope.GetPayload();
-
+        
         var id = await _provider.RegisterUserAsync(command.FirstName, command.LastName, command.Email, command.Password, command.Locale, command.TimeZone, command.Currency);
 
         var @event = new RegisteredEvent(envelope.CorrelationId, id.ToString(), $"{command.FirstName} {command.LastName}", command.Email, command.Locale);

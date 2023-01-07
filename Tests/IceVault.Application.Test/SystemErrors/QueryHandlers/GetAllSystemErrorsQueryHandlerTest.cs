@@ -4,6 +4,7 @@ using IceVault.Application.SystemErrors.Queries;
 using IceVault.Application.SystemErrors.QueryHandlers;
 using IceVault.Application.SystemErrors.Repositories;
 using Moq;
+using NodaTime;
 using Shouldly;
 using Xunit;
 
@@ -23,7 +24,7 @@ public class GetAllSystemErrorsQueryHandlerTest : IDisposable
     [Fact]
     public async Task HandleAsync_ShouldReturnListOfSystemErrors_Test()
     {
-        var error = new SystemError(Guid.NewGuid().ToString(), string.Empty, string.Empty, string.Empty, DateTime.UtcNow);
+        var error = new SystemError(Guid.NewGuid().ToString(), string.Empty, string.Empty, string.Empty, SystemClock.Instance.GetCurrentInstant());
         var errors = new List<SystemError> { error };
 
         _mock.Mock<ISystemErrorRepository>().Setup(el => el.GetSystemErrors()).ReturnsAsync(errors);

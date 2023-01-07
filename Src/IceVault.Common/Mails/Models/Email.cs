@@ -2,7 +2,7 @@
 
 public class Email
 {
-    private readonly List<string> _receivers = new List<string>();
+    private readonly List<string> _receivers = new();
 
     public Email(string subject, string body)
     {

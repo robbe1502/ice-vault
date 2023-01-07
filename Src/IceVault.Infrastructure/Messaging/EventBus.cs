@@ -22,7 +22,7 @@ internal class EventBus : IEventBus
 
         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-        var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+        var settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         var type = @event.GetType().AssemblyQualifiedName;
 
         var payload = JsonConvert.SerializeObject(@event, settings);

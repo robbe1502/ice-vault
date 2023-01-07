@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using FluentValidation;
 using IceVault.Common.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 

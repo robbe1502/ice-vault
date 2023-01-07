@@ -3,7 +3,7 @@
 public class MailSetting
 {
     public string Host { get; set; }
-
+    
     public int Port { get; set; }
     
     public bool IsSslEnabled { get; set; }
@@ -13,6 +13,6 @@ public class MailSetting
     public string Password { get; set; }
     
     public string FromEmailAddress { get; set; }
-
+    
     public bool IsInvalid => string.IsNullOrWhiteSpace(Host);
 }

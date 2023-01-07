@@ -16,8 +16,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
-    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.5.0" />
+    <PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0" />
     <PackageReference Include="Seq.Extensions.Logging" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

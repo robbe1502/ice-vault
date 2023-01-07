@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using NodaTime;
 
 namespace IceVault.Application.SystemErrors.Entities;
 
@@ -9,7 +10,7 @@ public class SystemError
     {
     }
 
-    public SystemError(string correlationId, string payload, string eventType, string user, DateTime occuredAt)
+    public SystemError(string correlationId, string payload, string eventType, string user, Instant occuredAt)
     {
         CorrelationId = correlationId;
         Payload = payload;
@@ -23,7 +24,7 @@ public class SystemError
     
     public string User { get; private set; }
     
-    public DateTime OccuredAt { get; private set; }
+    public Instant OccuredAt { get; private set; }
     
     public string CorrelationId { get; private set; }
     

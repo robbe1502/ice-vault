@@ -38,14 +38,14 @@ public class Envelope<T> where T : IMessage
 
     public DateTime CreatedAt { get; }
 
-    public static Envelope<T> Create(T message, string accessToken, string requestPath, string connectionId, string userId, string userName)
+    public static Envelope<T> Create(T message, string accessToken, string requestPath, string connectionId, string userId, string userName, string correlationId = "")
     {
-        var correlationId = Guid.NewGuid().ToString();
+        var id = string.IsNullOrWhiteSpace(correlationId) ? Guid.NewGuid().ToString() : correlationId;
 
         var payload = JsonConvert.SerializeObject(message, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
         var type = message.GetType().AssemblyQualifiedName;
 
-        return new Envelope<T>(correlationId, payload, type, accessToken, requestPath, connectionId, userId, userName);
+        return new Envelope<T>(id, payload, type, accessToken, requestPath, connectionId, userId, userName);
     }
 
     public T GetPayload()

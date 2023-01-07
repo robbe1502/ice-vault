@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using IceVault.Application.Authentication.Login;
 using IceVault.Application.Authentication.Profile;
 using IceVault.Application.Authentication.Refresh;
@@ -34,14 +35,16 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost, Route("register"), AllowAnonymous]
-    public async Task RegisterAsync([FromBody] RegisterDemand demand)
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterDemand demand)
     {
         var command = _mapper.Map<RegisterCommand>(demand);
         await _bus.Send(command);
+        
+        return StatusCode((int) HttpStatusCode.Created);
     }
 
     [HttpGet, Route("profile")]
-    public async Task<ProfileInformationResult> GetProfileInformation()
+    public async Task<ProfileInformationResult> GetProfileInformationAsync()
     {
         var token = await HttpContext.GetTokenAsync("access_token");
         

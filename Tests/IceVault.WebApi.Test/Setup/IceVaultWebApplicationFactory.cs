@@ -1,14 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
+using IceVault.Common;
 using IceVault.Common.Identity;
 using IceVault.Common.Identity.Models.Results;
 using IceVault.Common.Settings;
 using IceVault.Persistence.Read;
 using IceVault.Persistence.Write;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Xunit;
 
 namespace IceVault.WebApi.Test.Setup;
@@ -33,7 +33,6 @@ public class IceVaultWebApplicationFactory : WebApplicationFactory<WebApiProgram
                 Database = "IceVault", 
                 Environments = { { "SA_PASSWORD", "LocalTestingPassword#123" } }
             })
-            .WithName("ice-vault-database")
             .WithImage("mcr.microsoft.com/mssql/server:2019-latest")
             .Build();
     }
@@ -60,6 +59,7 @@ public class IceVaultWebApplicationFactory : WebApplicationFactory<WebApiProgram
         {
             services.RemoveAll(typeof(IIdentityProvider));
             services.RemoveAll(typeof(IOptions<PersistenceSetting>));
+            services.RemoveAll(typeof(JwtBearerOptions));
             
             services.AddScoped<IIdentityProvider, FakeIdentityProvider>();
 
@@ -70,6 +70,15 @@ public class IceVaultWebApplicationFactory : WebApplicationFactory<WebApiProgram
             });
 
             services.AddScoped(_ => options);
+
+            services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, config =>
+            {
+                var oidc = new OpenIdConnectConfiguration { Issuer = FakeJwtTokens.Issuer };
+                oidc.SigningKeys.Add(FakeJwtTokens.SecurityKey);
+                
+                config.Configuration = oidc;
+                config.SaveToken = true;
+            });
             
             // Migrations
             using var scope = services.BuildServiceProvider().CreateScope();
@@ -90,25 +99,23 @@ internal class FakeIdentityProvider : IIdentityProvider
     {
         var claims = new List<Claim>
         {
-            new(IceVaultClaimConstant.Id, "123"),
-            new(IceVaultClaimConstant.FullName, "John Doe"),
-            new(IceVaultClaimConstant.Email, "johndoe@hotmail.com"),
-            new(IceVaultClaimConstant.Locale, "en-US"),
-            new(IceVaultClaimConstant.TimeZone, "Europe/Brussels"),
-            new(IceVaultClaimConstant.Currency, "EUR")
+            new(IceVaultConstant.Claim.Id, "123"),
+            new(IceVaultConstant.Claim.FullName, "John Doe"),
+            new(IceVaultConstant.Claim.Email, "johndoe@hotmail.com"),
+            new(IceVaultConstant.Claim.Locale, "en-US"),
+            new(IceVaultConstant.Claim.TimeZone, "Europe/Brussels"),
+            new(IceVaultConstant.Claim.Currency, "EUR"),
+            new ("scope", "ice-vault-web-api"),
+            new ("scope", "email"),
+            new ("scope", "openid"),
+            new ("scope", "profile"),
+            new ("scope", "profile-data"),
+            new ("scope", "offline_access"),
+            new ("iss", FakeJwtTokens.Issuer),
+            new ("client_id", "7E9C08BE-2DE9-4E85-9060-B1A1CC78559F")
         };
 
-        var handler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("635BA202-2529-4E57-9D88-981E8EE73C68");
-
-        var descriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = handler.WriteToken(handler.CreateToken(descriptor));
+        var token = FakeJwtTokens.GenerateToken(claims);
         return Task.FromResult(new TokenResult(token, string.Empty, 3600));
     }
 
@@ -121,11 +128,11 @@ internal class FakeIdentityProvider : IIdentityProvider
     {
         return Task.FromResult(new UserResult
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "123",
             Currency = "EUR",
-            Email = "test@hotmail.com",
+            Email = "johndoe@hotmail.com",
             Locale = "en-US",
-            Name = "John Testing",
+            Name = "John Doe",
             TimeZone = "Europe/Brussels"
         });
     }

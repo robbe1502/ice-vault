@@ -1,18 +1,22 @@
+using System.Reflection;
+using FluentValidation;
 using IceVault.Application;
+using IceVault.Application.Authentication.Login;
 using IceVault.Common.Settings;
 using IceVault.Infrastructure;
-using IceVault.Infrastructure.BackgroundJobs;
 using IceVault.Persistence.Read;
 using IceVault.Persistence.Write;
 using IceVault.Presentation.Authentication;
+using IceVault.Presentation.Middleware.ExceptionHandling;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Quartz;
+using NodaTime;
+using NodaTime.Serialization.SystemTextJson;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb))
     .AddApplicationPart(typeof(AuthenticationController).Assembly);
 
 // Dependencies
@@ -25,6 +29,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAutoMapper(typeof(AuthenticationController).Assembly);
+builder.Services.AddValidatorsFromAssemblies(new List<Assembly> { typeof(LoginQuery).Assembly });
 
 // Logging
 builder.Logging.AddSeq(builder.Configuration["Logging:Seq:Url"]);
@@ -32,20 +37,6 @@ builder.Logging.AddSeq(builder.Configuration["Logging:Seq:Url"]);
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Background Jobs
-builder.Services.AddQuartz(config =>
-{
-    var processOutboxMessageKey = new JobKey(nameof(ProcessOutboxMessageJob));
-    config.UseMicrosoftDependencyInjectionJobFactory();
-
-    config.AddJob<ProcessOutboxMessageJob>(processOutboxMessageKey).AddTrigger(trigger =>
-        trigger.ForJob(processOutboxMessageKey)
-            .WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(30).RepeatForever()));
-});
-
-builder.Services.AddQuartzHostedService();
-
 
 // Settings
 builder.Services.Configure<IdentitySetting>(builder.Configuration.GetSection("Identity"));
@@ -60,12 +51,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         options.Authority = builder.Configuration["Identity:Authority"];
         options.RequireHttpsMetadata = bool.Parse(builder.Configuration["Identity:RequireHttps"]);
         options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters()
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuer = true,
-            ClockSkew = TimeSpan.Zero,
+            ClockSkew = TimeSpan.Zero
         };
     });
 
@@ -83,6 +74,8 @@ app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers().RequireAuthorization("ApiScope");
 app.Run();

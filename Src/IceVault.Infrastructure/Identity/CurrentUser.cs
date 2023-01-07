@@ -1,4 +1,5 @@
-﻿using IceVault.Common.Identity;
+﻿using IceVault.Common;
+using IceVault.Common.Identity;
 using Microsoft.AspNetCore.Http;
 
 namespace IceVault.Infrastructure.Identity;
@@ -12,5 +13,5 @@ internal class CurrentUser : ICurrentUser
         _context = accessor.HttpContext;
     }
 
-    public string Id => _context.User.Claims.SingleOrDefault(el => el.Type == IceVaultClaimConstant.Id)?.Value;
+    public string Id => _context.User.Claims.SingleOrDefault(el => el.Type == IceVaultConstant.Claim.Id)?.Value;
 }

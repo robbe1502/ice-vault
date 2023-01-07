@@ -16,7 +16,7 @@ public class IceVaultWriteDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_settings.Write.ConnectionString);
+        optionsBuilder.UseSqlServer(_settings.Write.ConnectionString, el => el.UseNodaTime());
         optionsBuilder.EnableDetailedErrors(_settings.Write.IsLogsEnabled);
         optionsBuilder.EnableSensitiveDataLogging(_settings.Write.IsLogsEnabled);
     }
